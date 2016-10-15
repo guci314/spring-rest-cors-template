@@ -37,6 +37,7 @@ public class ProductController
 		return this.productService.createNewProduct(title, description, price);
 	}
 
+	/*
 	@RequestMapping(value = "/findAll", method = RequestMethod.POST)
 	public
 	@ResponseBody
@@ -48,4 +49,15 @@ public class ProductController
 		response.addHeader("Access-Control-Allow-Origin", "*");
 		return this.productService.findAll();
 	}
+	*/
+	
+	@RequestMapping(value = "/findAll", method = RequestMethod.GET)
+	public
+	@ResponseBody
+	List<Product> searchByPosition(HttpServletResponse response)
+	{
+		response.addHeader("Access-Control-Allow-Origin", "*");
+		return this.productService.findAll();
+	}
+	
 }

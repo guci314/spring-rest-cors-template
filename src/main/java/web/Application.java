@@ -14,6 +14,7 @@ import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import web.filters.CorsFilter;
+import web.models.Product;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
@@ -35,8 +36,9 @@ public class Application
 	public DataSource dataSource()
 	{
 		Properties connectionProperties = new Properties();
-		connectionProperties.setProperty("hibernate.hbm2ddl.auto", "create");
-		DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource("jdbc:mysql://SERVER/DATABASE", "USERNAME", "PASSWORD");
+		//connectionProperties.setProperty("hibernate.hbm2ddl.auto", "update");
+		DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource("jdbc:mysql://localhost:3306/test", "root", "root");
+		//DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource("jdbc:h2:mem:mydb", "root", "root");
 		driverManagerDataSource.setConnectionProperties(connectionProperties);
 		return driverManagerDataSource;
 	}
@@ -63,7 +65,7 @@ public class Application
 		HibernateJpaVendorAdapter hibernateJpaVendorAdapter = new HibernateJpaVendorAdapter();
 		hibernateJpaVendorAdapter.setShowSql(false);
 		hibernateJpaVendorAdapter.setGenerateDdl(true);
-		hibernateJpaVendorAdapter.setDatabase(Database.H2);
+		hibernateJpaVendorAdapter.setDatabase(Database.MYSQL);
 		return hibernateJpaVendorAdapter;
 	}
 
