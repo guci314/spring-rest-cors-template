@@ -23,9 +23,18 @@ public class RegisterController {
 	@RequestMapping(value = "/register", method = {RequestMethod.POST})
 	public
 	@ResponseBody
-	boolean sayHello(@RequestParam("phoneNumber") String phoneNumber,@RequestParam("validCode") String validCode,@RequestParam("password") String password,HttpServletResponse response)
+	boolean register(@RequestParam("phoneNumber") String phoneNumber,@RequestParam("validCode") String validCode,@RequestParam("password") String password,HttpServletResponse response)
 	{
 		response.addHeader("Access-Control-Allow-Origin", "*");
 		return registerService.Register(phoneNumber, validCode, password);
+	}
+	
+	@RequestMapping(value = "/login", method = {RequestMethod.POST})
+	public
+	@ResponseBody
+	boolean login(@RequestParam("phoneNumber") String phoneNumber,@RequestParam("password") String password,HttpServletResponse response)
+	{
+		response.addHeader("Access-Control-Allow-Origin", "*");
+		return registerService.Login(phoneNumber, password);
 	}
 }

@@ -23,6 +23,16 @@ public class RegisterService {
 		}
 	}
 
+	public boolean Login(String phoneNumber,String password){
+		User user=userRepository.findUserByPhoneNumber(phoneNumber);
+		if (user==null) return false;
+		if (user.getPassword().equals(password)){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
 	public void ResetPassword() {
 
 	}
