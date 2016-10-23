@@ -1,4 +1,4 @@
-11111111111Boilerplate code for creating flexible and clean RESTful services using Spring 3.
+111111111ffff11Boilerplate code for creating flexible and clean RESTful services using Spring 3.
 This project uses a java-based config and a JPA connection to a MySQL DB.
 This project is also CORS aware and can be used easily with JQuery from another domain than the dataserver without any modifications.
 Don't hesitate to fork and star the project if you like it.
