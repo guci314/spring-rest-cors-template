@@ -2,6 +2,7 @@ package web;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.context.embedded.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +14,8 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.web.filter.CharacterEncodingFilter;
+
 import web.filters.CorsFilter;
 import web.models.Product;
 
@@ -37,7 +40,7 @@ public class Application
 	{
 		Properties connectionProperties = new Properties();
 		//connectionProperties.setProperty("hibernate.hbm2ddl.auto", "update");
-		DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource("jdbc:mysql://localhost:3306/test", "root", "root");
+		DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource("jdbc:mysql://localhost:3306/test?useUnicode=yes&characterEncoding=UTF-8", "root", "root");
 		//DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource("jdbc:h2:mem:mydb", "root", "root");
 		driverManagerDataSource.setConnectionProperties(connectionProperties);
 		return driverManagerDataSource;
@@ -80,4 +83,16 @@ public class Application
 		SpringApplication springApplication = new SpringApplication(Application.class);
 		springApplication.run(args);
 	}
+	
+	/*
+	@Bean
+	public FilterRegistrationBean filterRegistrationBean() {
+	    FilterRegistrationBean registrationBean = new FilterRegistrationBean();
+	    CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
+	    characterEncodingFilter.setEncoding("UTF-8");
+	    registrationBean.setFilter(characterEncodingFilter);
+	    return registrationBean;
+	}
+	*/
+
 }

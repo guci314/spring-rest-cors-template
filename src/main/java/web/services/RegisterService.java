@@ -36,4 +36,21 @@ public class RegisterService {
 	public void ResetPassword() {
 
 	}
+	
+	public boolean ChangeUserName(String phoneNumber,String newName){
+		User user=userRepository.findUserByPhoneNumber(phoneNumber);
+		if (user==null) return false;
+		try{
+			user.setName(newName);
+			userRepository.saveAndFlush(user);
+			return true;
+		}catch(Exception e){
+			return false;
+		}
+	}
+	
+	public User GetUserByPhoneNumber(String phoneNumber){
+		User user=userRepository.findUserByPhoneNumber(phoneNumber);
+		return user;
+	}
 }
