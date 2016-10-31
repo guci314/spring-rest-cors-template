@@ -61,7 +61,9 @@ public class RegisterController {
 	public @ResponseBody User getUserByPhoneNumber(@RequestParam("phoneNumber") String phoneNumber,
 			HttpServletResponse response) {
 		response.addHeader("Access-Control-Allow-Origin", "*");
-		return registerService.GetUserByPhoneNumber(phoneNumber);
+		User u=registerService.GetUserByPhoneNumber(phoneNumber);
+		//u.setPassword(null);
+		return u;
 	}
 
 	@RequestMapping(value = "/changeUserName", method = { RequestMethod.POST })
@@ -73,6 +75,23 @@ public class RegisterController {
 			//name = java.net.URLDecoder.decode(name, "utf-8");
 			response.addHeader("Access-Control-Allow-Origin", "*");
 			return registerService.ChangeUserName(phoneNumber, name);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+
+	}
+	
+	@RequestMapping(value = "/changePassword", method = { RequestMethod.POST })
+	public @ResponseBody boolean changePassword(@RequestBody String params, HttpServletResponse response) {
+		try {
+			JSONObject j=new JSONObject(params);
+			String phoneNumber=j.getString("phoneNumber");
+			String oldPassword=j.getString("oldPassword");
+			String newPassword=j.getString("newPassword");
+			//name = java.net.URLDecoder.decode(name, "utf-8");
+			response.addHeader("Access-Control-Allow-Origin", "*");
+			return registerService.ChangePassword(phoneNumber,oldPassword,newPassword);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;

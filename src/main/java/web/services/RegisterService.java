@@ -49,6 +49,19 @@ public class RegisterService {
 		}
 	}
 	
+	public boolean ChangePassword(String phoneNumber,String oldPassword,String newPassword){
+		User user=userRepository.findUserByPhoneNumber(phoneNumber);
+		if (user==null) return false;
+		try{
+			if (!user.getPassword().equals(oldPassword)) return false;
+			user.setPassword(newPassword);
+			userRepository.saveAndFlush(user);
+			return true;
+		}catch(Exception e){
+			return false;
+		}
+	}
+	
 	public User GetUserByPhoneNumber(String phoneNumber){
 		User user=userRepository.findUserByPhoneNumber(phoneNumber);
 		return user;

@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import web.models.Product;
+
 import web.services.HelloService;
-import web.services.ProductService;
+
 
 @Controller
 @RequestMapping("/api/helloService")

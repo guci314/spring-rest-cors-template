@@ -17,7 +17,6 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
 import web.filters.CorsFilter;
-import web.models.Product;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
