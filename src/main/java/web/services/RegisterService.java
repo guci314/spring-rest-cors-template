@@ -1,15 +1,19 @@
 package web.services;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import web.models.User;
+import web.models.Vehicle;
 import web.repositories.UserRepository;
 
 @Service
 public class RegisterService {
 	@Autowired
 	private UserRepository userRepository;
+	@Autowired
+	private WalletService walletService;
 
 	public boolean Register(String phoneNumber, String validCode, String password) {
 		try {
@@ -17,6 +21,7 @@ public class RegisterService {
 			u.setPassword(password);
 			u.setPhoneNumber(phoneNumber);
 			userRepository.save(u);
+			walletService.create(phoneNumber);
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -62,8 +67,22 @@ public class RegisterService {
 		}
 	}
 	
-	public User GetUserByPhoneNumber(String phoneNumber){
+	public String GetUserByPhoneNumber(String phoneNumber){
 		User user=userRepository.findUserByPhoneNumber(phoneNumber);
-		return user;
+		JSONObject obj = new JSONObject();
+		obj.put("id", user.getId());
+		obj.put("name", user.getName());
+		obj.put("phoneNumber", user.getPhoneNumber());
+		obj.put("password", user.getPassword());
+		org.json.JSONArray ja=new org.json.JSONArray();
+		for(Vehicle v:user.getVehicles()){
+			JSONObject o = new JSONObject();
+			o.put("id", v.getId());
+			o.put("plate", v.getPlate());
+			o.put("autoCharge", v.isAutoCharge());
+			ja.put(o);
+		}
+		obj.put("vehicles", ja);
+		return obj.toString();
 	}
 }

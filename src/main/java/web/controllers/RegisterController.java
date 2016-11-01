@@ -28,12 +28,12 @@ public class RegisterController {
 	@RequestMapping(value = "/register", method = { RequestMethod.POST })
 	public @ResponseBody boolean register(@RequestBody String params,
 			HttpServletResponse response) {
+		response.addHeader("Access-Control-Allow-Origin", "*");
 		try {
 			JSONObject j=new JSONObject(params);
 			String phoneNumber=j.getString("phoneNumber");
 			String password=j.getString("password");
 			String validCode=j.getString("validCode");
-			response.addHeader("Access-Control-Allow-Origin", "*");
 			return registerService.Register(phoneNumber, validCode, password);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
@@ -58,12 +58,10 @@ public class RegisterController {
 	}
 
 	@RequestMapping(value = "/getUserByPhoneNumber", method = { RequestMethod.GET })
-	public @ResponseBody User getUserByPhoneNumber(@RequestParam("phoneNumber") String phoneNumber,
+	public @ResponseBody String getUserByPhoneNumber(@RequestParam("phoneNumber") String phoneNumber,
 			HttpServletResponse response) {
 		response.addHeader("Access-Control-Allow-Origin", "*");
-		User u=registerService.GetUserByPhoneNumber(phoneNumber);
-		//u.setPassword(null);
-		return u;
+		return registerService.GetUserByPhoneNumber(phoneNumber);
 	}
 
 	@RequestMapping(value = "/changeUserName", method = { RequestMethod.POST })

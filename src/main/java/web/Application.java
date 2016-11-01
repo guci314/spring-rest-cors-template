@@ -16,6 +16,8 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
+import com.fasterxml.jackson.databind.Module;
+
 import web.filters.CorsFilter;
 
 import javax.persistence.EntityManagerFactory;
@@ -77,6 +79,11 @@ public class Application
 		return new JpaTransactionManager(entityManagerFactory);
 	}
 
+//	@Bean
+//	public Module datatypeHibernateModule() {
+//	  return new Hibernate4Module();
+//	}
+	
 	public static void main(String[] args)
 	{
 		SpringApplication springApplication = new SpringApplication(Application.class);
