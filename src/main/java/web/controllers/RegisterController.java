@@ -57,7 +57,8 @@ public class RegisterController {
 		}
 	}
 
-	@RequestMapping(value = "/getUserByPhoneNumber", method = { RequestMethod.GET })
+	//produces="application/json"
+	@RequestMapping(value = "/getUserByPhoneNumber", method = { RequestMethod.GET },produces="application/json;charset=UTF-8")
 	public @ResponseBody String getUserByPhoneNumber(@RequestParam("phoneNumber") String phoneNumber,
 			HttpServletResponse response) {
 		response.addHeader("Access-Control-Allow-Origin", "*");
