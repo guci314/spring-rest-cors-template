@@ -73,6 +73,8 @@ public class RegisterController {
 			String name=j.getString("name");
 			//name = java.net.URLDecoder.decode(name, "utf-8");
 			response.addHeader("Access-Control-Allow-Origin", "*");
+			//response.addHeader("Access-Control-Allow-Methods", "*");
+			//response.addHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With");
 			return registerService.ChangeUserName(phoneNumber, name);
 		} catch (Exception e) {
 			e.printStackTrace();
