@@ -1,9 +1,10 @@
 package web.value;
 
 /*
- * 查询费用的返回消息
- */
-public class QueryFeeMsg {
+ * 停车记录
+ */	
+public class ParkingRecord {
+	
 	/*
 	 * 车牌号
 	 */
@@ -22,7 +23,12 @@ public class QueryFeeMsg {
 	/*
 	 * 存车口
 	 */
-	private String entrance	;
+	private String parkingEntrance	;
+	
+	/*
+	 * 取车口
+	 */
+	private String pickupEntrance	;
 	
 	/*
 	 * 停车时间
@@ -63,12 +69,20 @@ public class QueryFeeMsg {
 		this.garage = garage;
 	}
 
-	public String getEntrance() {
-		return entrance;
+	public String getParkingEntrance() {
+		return parkingEntrance;
 	}
 
-	public void setEntrance(String entrance) {
-		this.entrance = entrance;
+	public void setParkingEntrance(String parkingEntrance) {
+		this.parkingEntrance = parkingEntrance;
+	}
+
+	public String getPickupEntrance() {
+		return pickupEntrance;
+	}
+
+	public void setPickupEntrance(String pickupEntrance) {
+		this.pickupEntrance = pickupEntrance;
 	}
 
 	public String getParkingTime() {
@@ -94,5 +108,5 @@ public class QueryFeeMsg {
 	public void setFee(float fee) {
 		this.fee = fee;
 	}
-	
+
 }

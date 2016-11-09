@@ -10,20 +10,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import web.models.Vehicle;
 import web.services.WalletService;
 
-@Controller
+@RestController
 @RequestMapping("/api/walletService")
 public class WalletController {
 	@Autowired
 	private WalletService walletService;
 	
 	@RequestMapping(value = "/create", method = { RequestMethod.POST })
-	public @ResponseBody boolean create(@RequestBody String params,
+	public boolean create(@RequestBody String params,
 			HttpServletResponse response) {
-		response.addHeader("Access-Control-Allow-Origin", "*");
 		try {
 			JSONObject j=new JSONObject(params);
 			String phoneNumber=j.getString("phoneNumber");
@@ -36,9 +36,8 @@ public class WalletController {
 	}
 	
 	@RequestMapping(value = "/deposit", method = { RequestMethod.POST })
-	public @ResponseBody boolean deposit(@RequestBody String params,
+	public boolean deposit(@RequestBody String params,
 			HttpServletResponse response) {
-		response.addHeader("Access-Control-Allow-Origin", "*");
 		try {
 			JSONObject j=new JSONObject(params);
 			String phoneNumber=j.getString("phoneNumber");
@@ -52,9 +51,8 @@ public class WalletController {
 	}
 	
 	@RequestMapping(value = "/withdraw", method = { RequestMethod.POST })
-	public @ResponseBody boolean withdraw(@RequestBody String params,
+	public boolean withdraw(@RequestBody String params,
 			HttpServletResponse response) {
-		response.addHeader("Access-Control-Allow-Origin", "*");
 		try {
 			JSONObject j=new JSONObject(params);
 			String phoneNumber=j.getString("phoneNumber");
@@ -68,9 +66,8 @@ public class WalletController {
 	}
 	
 	@RequestMapping(value = "/getBalance", method = { RequestMethod.POST })
-	public @ResponseBody float getBalance(@RequestBody String params,
+	public float getBalance(@RequestBody String params,
 			HttpServletResponse response) {
-		response.addHeader("Access-Control-Allow-Origin", "*");
 		try {
 			JSONObject j=new JSONObject(params);
 			String phoneNumber=j.getString("phoneNumber");

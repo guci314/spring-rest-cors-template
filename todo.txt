@@ -1,6 +1,15 @@
-用户和车牌号是一对多还是多对多
-验证车牌号
-界面配色一致性
 添加ionic loading
-ionc 配色 
-安全
+添加ionic splash
+finduserbyphonenumber changepasssword，钱包服务需要添加实例安全
+ssl
+注册成功后应该自动登录
+添加角色
+检查新版本
+忘了密码
+消息通知，具有分页功能
+钱包明细账
+
+
+curl -u 18674048895:11111 	
+Cookie:JSESSIONID=33EEEB47A6CC1108974F39F1E5F22965
+curl -X POST -F 'username=18674048895' -F 'password=11111' http://localhost:8081/login

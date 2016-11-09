@@ -13,20 +13,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import web.models.Vehicle;
 import web.services.VehicleService;
 
-@Controller
+@RestController
 @RequestMapping("/api/vehicleService")
 public class VehicleController {
 	@Autowired
 	private VehicleService vehicleService;
 	
 	@RequestMapping(value = "/bindPlate", method = { RequestMethod.POST })
-	public @ResponseBody Vehicle bindPlate(@RequestBody String params,
+	public Vehicle bindPlate(@RequestBody String params,
 			HttpServletResponse response) {
-		response.addHeader("Access-Control-Allow-Origin", "*");
 		try {
 			JSONObject j=new JSONObject(params);
 			String phoneNumber=j.getString("phoneNumber");
@@ -41,9 +41,8 @@ public class VehicleController {
 	}
 	
 	@RequestMapping(value = "/findVehiclesByPhoneNumber", method = { RequestMethod.GET })
-	public @ResponseBody List<Vehicle> findVehiclesByPhoneNumber(@RequestParam String phoneNumber,
+	public List<Vehicle> findVehiclesByPhoneNumber(@RequestParam String phoneNumber,
 			HttpServletResponse response) {
-		response.addHeader("Access-Control-Allow-Origin", "*");
 		try {
 			return vehicleService.findVehiclesByPhoneNumber(phoneNumber);
 		} catch (JSONException e) {
@@ -54,9 +53,8 @@ public class VehicleController {
 	}
 	
 	@RequestMapping(value = "/deleteVehicle", method = { RequestMethod.POST })
-	public @ResponseBody boolean deleteVehicle(@RequestBody String params,
+	public boolean deleteVehicle(@RequestBody String params,
 			HttpServletResponse response) {
-		response.addHeader("Access-Control-Allow-Origin", "*");
 		try {
 			JSONObject j=new JSONObject(params);
 			Long id=j.getLong("id");

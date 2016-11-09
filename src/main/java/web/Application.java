@@ -23,6 +23,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
 import com.fasterxml.jackson.databind.Module;
@@ -43,7 +44,7 @@ import java.util.Properties;
 @ComponentScan
 public class Application {
 
-	@Bean
+	@Bean(name = "dataSource")
 	public DataSource dataSource() {
 		Properties connectionProperties = new Properties();
 		// connectionProperties.setProperty("hibernate.hbm2ddl.auto", "update");

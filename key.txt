@@ -1,0 +1,3 @@
+keytool -genkey -alias localhost -storetype PKCS12 -keyalg RSA -keysize 2048 -keystore keystore.p12 -validity 3650 -dname "CN=localhost, OU=localhost, O=localhost, L=SH, ST=SH, C=CN" -keypass 111111 -storepass 111111
+
+curl --cacert localhost.crt https://localhost:8443/api/helloService/sayHello
