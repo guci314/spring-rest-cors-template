@@ -38,6 +38,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         if (password.equals(p)) {
             final List<GrantedAuthority> grantedAuths = new ArrayList<GrantedAuthority>();
             grantedAuths.add(new SimpleGrantedAuthority("ROLE_USER"));
+            if (u.getPhoneNumber().equals("admin")) grantedAuths.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
             final UserDetails principal = new User(name, password, grantedAuths);
             final Authentication auth = new UsernamePasswordAuthenticationToken(principal, password, grantedAuths);
             return auth;
@@ -48,7 +49,8 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public boolean supports(final Class<?> authentication) {
-        return authentication.equals(UsernamePasswordAuthenticationToken.class);
+        //return authentication.equals(UsernamePasswordAuthenticationToken.class);
+    	return (UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication));
     }
 
 }

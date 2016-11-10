@@ -31,10 +31,23 @@ public class User implements Serializable {
 	private String phoneNumber;
 	@Column(nullable=false)
 	private String password;
+	
 	@OneToMany(fetch = FetchType.EAGER,mappedBy="user")
 	@JsonBackReference
 	private List<Vehicle> vehicles =new ArrayList<Vehicle>();
 	
+//	@OneToMany(fetch = FetchType.LAZY,mappedBy="owner")
+//	@JsonBackReference
+//	private List<Message> messages =new ArrayList<Message>();
+	
+//	public List<Message> getMessages() {
+//		return messages;
+//	}
+//
+//	public void setMessages(List<Message> messages) {
+//		this.messages = messages;
+//	}
+
 	public List<Vehicle> getVehicles() {
 		return vehicles;
 	}

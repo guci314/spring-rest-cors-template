@@ -8,8 +8,4 @@ ssl
 忘了密码
 消息通知，具有分页功能
 钱包明细账
-
-
-curl -u 18674048895:11111 	
-Cookie:JSESSIONID=33EEEB47A6CC1108974F39F1E5F22965
-curl -X POST -F 'username=18674048895' -F 'password=11111' http://localhost:8081/login
+重构到符合restful模式  基于restful设计实例安全

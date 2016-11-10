@@ -20,10 +20,11 @@ public class RegisterService {
 			User u = new User();
 			u.setPassword(password);
 			u.setPhoneNumber(phoneNumber);
-			userRepository.save(u);
+			userRepository.saveAndFlush(u);
 			walletService.create(phoneNumber);
 			return true;
 		} catch (Exception e) {
+			System.out.println(e.getMessage());
 			return false;
 		}
 	}
@@ -50,6 +51,7 @@ public class RegisterService {
 			userRepository.saveAndFlush(user);
 			return true;
 		}catch(Exception e){
+			System.out.println(e.getMessage());
 			return false;
 		}
 	}

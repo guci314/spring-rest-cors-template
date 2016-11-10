@@ -1,30 +1,22 @@
-package web.models;
+package web.value;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import web.models.Message;
+import web.models.User;
 
-@Entity
-public class Message {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+public class MessageDTO {
 	private Long id;
 	
 	private String title;
 	
 	private String content;
 	
-	@ManyToOne
-	@JoinColumn(name="user_id")
-	private User owner;
+	private Long user_id;
 
 	public Long getId() {
 		return id;
@@ -50,12 +42,23 @@ public class Message {
 		this.content = content;
 	}
 
-	public User getOwner() {
-		return owner;
+	public Long getUser_id() {
+		return user_id;
 	}
 
-	public void setOwner(User belongTo) {
-		this.owner = belongTo;
+	public void setUser_id(Long user_id) {
+		this.user_id = user_id;
 	}
 	
+	public MessageDTO(Message m){
+		if (m==null) return;
+		setId(m.getId());
+		setContent(m.getContent());
+		setTitle(m.getTitle());
+		setUser_id(m.getOwner().getId());
+	}
+	
+	public MessageDTO(){
+		
+	}
 }
