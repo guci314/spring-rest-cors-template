@@ -23,7 +23,11 @@ public class RegisterService {
 			userRepository.saveAndFlush(u);
 			walletService.create(phoneNumber);
 			return true;
-		} catch (Exception e) {
+		}
+		catch (org.springframework.dao.DataIntegrityViolationException e){
+			return false;
+		}
+		catch (Exception e) {
 			System.out.println(e.getMessage());
 			return false;
 		}

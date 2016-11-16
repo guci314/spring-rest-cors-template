@@ -2,10 +2,10 @@
 添加ionic splash
 finduserbyphonenumber changepasssword，钱包服务需要添加实例安全
 ssl
-注册成功后应该自动登录
 添加角色
-检查新版本
 忘了密码
 消息通知，具有分页功能
 钱包明细账
 重构到符合restful模式  基于restful设计实例安全
+密码加密存储
+注册失败报错应该更明细，网络错误？电话号码已注册？验证码错误？

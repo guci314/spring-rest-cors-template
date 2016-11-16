@@ -48,8 +48,10 @@ public class Application {
 	public DataSource dataSource() {
 		Properties connectionProperties = new Properties();
 		// connectionProperties.setProperty("hibernate.hbm2ddl.auto", "update");
+		//DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource(
+		//		"jdbc:mysql://localhost:3306/test?useUnicode=yes&characterEncoding=UTF-8", "root", "root");
 		DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource(
-				"jdbc:mysql://localhost:3306/test?useUnicode=yes&characterEncoding=UTF-8", "root", "root");
+				"jdbc:sqlserver://192.168.6.23:1433;databaseName=test;integratedSecurity=false;", "sa", "Wchy@2015");
 		// DriverManagerDataSource driverManagerDataSource = new
 		// DriverManagerDataSource("jdbc:h2:mem:mydb", "root", "root");
 		driverManagerDataSource.setConnectionProperties(connectionProperties);
