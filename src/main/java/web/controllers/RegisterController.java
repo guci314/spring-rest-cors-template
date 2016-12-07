@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import web.models.User;
 import web.services.HelloService;
 import web.services.RegisterService;
+import web.services.RegisterService.ResponseCode;
 
 @RestController
 @RequestMapping("/api/registerService")
@@ -30,7 +31,7 @@ public class RegisterController {
 	private RegisterService registerService;
 
 	@RequestMapping(value = "/register", method = { RequestMethod.POST })
-	public boolean register(@RequestBody String params) {
+	public ResponseCode register(@RequestBody String params) {
 		try {
 			JSONObject j=new JSONObject(params);
 			String phoneNumber=j.getString("phoneNumber");
@@ -40,12 +41,27 @@ public class RegisterController {
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return false;
+			return ResponseCode.systemError;
+		}
+	}
+	
+	@RequestMapping(value = "/resetPassword", method = { RequestMethod.POST })
+	public ResponseCode resetPassword(@RequestBody String params) {
+		try {
+			JSONObject j=new JSONObject(params);
+			String phoneNumber=j.getString("phoneNumber");
+			String password=j.getString("password");
+			String validCode=j.getString("validCode");
+			return registerService.ResetPassword(phoneNumber, validCode, password);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return ResponseCode.systemError;
 		}
 	}
 
 	@RequestMapping(value = "/login", method = { RequestMethod.POST })
-	public boolean login(@RequestBody String params) {
+	public ResponseCode login(@RequestBody String params) {
 		try {
 			JSONObject j=new JSONObject(params);
 			String phoneNumber=j.getString("phoneNumber");
@@ -54,7 +70,7 @@ public class RegisterController {
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return false;
+			return ResponseCode.systemError;
 		}
 	}
 
@@ -65,7 +81,7 @@ public class RegisterController {
 	}
 
 	@RequestMapping(value = "/changeUserName", method = { RequestMethod.POST })
-	public boolean changeUserName(@RequestBody String params,HttpServletResponse response) {
+	public ResponseCode changeUserName(@RequestBody String params,HttpServletResponse response) {
 		try {
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			String username = authentication.getName();
@@ -73,19 +89,19 @@ public class RegisterController {
 			String phoneNumber=j.getString("phoneNumber");
 			String name=j.getString("name");
 			if (!username.equals(phoneNumber)){
-				response.setStatus(403);
-				return false;
+				//response.setStatus(403);
+				return ResponseCode.noPermission;
 			}
 			return registerService.ChangeUserName(phoneNumber, name);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return false;
+			return ResponseCode.systemError;
 		}
 
 	}
 	
 	@RequestMapping(value = "/changePassword", method = { RequestMethod.POST })
-	public boolean changePassword(@RequestBody String params, HttpServletResponse response) {
+	public ResponseCode changePassword(@RequestBody String params, HttpServletResponse response) {
 		try {
 			JSONObject j=new JSONObject(params);
 			String phoneNumber=j.getString("phoneNumber");
@@ -94,13 +110,13 @@ public class RegisterController {
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			String username = authentication.getName();
 			if (!username.equals(phoneNumber)){
-				response.setStatus(403);
-				return false;
+				//response.setStatus(403);
+				return ResponseCode.noPermission;
 			}
 			return registerService.ChangePassword(phoneNumber,oldPassword,newPassword);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return false;
+			return ResponseCode.systemError;
 		}
 
 	}

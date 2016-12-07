@@ -54,6 +54,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		        .antMatchers("/").permitAll()
 		        .antMatchers("/api/registerService/register").permitAll()
 		        .antMatchers("/api/registerService/login").permitAll()
+		        .antMatchers("/api/registerService/resetPassword").permitAll()
 		        .antMatchers(HttpMethod.POST, "/api/messages").hasRole("ADMIN")
 				.antMatchers(HttpMethod.PUT, "/api/**").hasRole("USER")
 				.antMatchers(HttpMethod.POST, "/api/**").hasRole("USER")
@@ -62,6 +63,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.HEAD, "/api/**").hasRole("USER")
 				.antMatchers(HttpMethod.PATCH, "/api/**").hasRole("USER")
 				.antMatchers(HttpMethod.OPTIONS, "/api/**").permitAll();
+		
+		
+		
+		
 //		.and().csrf().disable().formLogin().successHandler(new AuthenticationSuccessHandler() {
 //		    @Override
 //		    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {

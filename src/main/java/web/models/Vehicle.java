@@ -16,7 +16,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-@Table(name = "vehicles")
+@Table(name = "TAPP_Vehicles")
 public class Vehicle implements Serializable {
 
 	/**
@@ -24,8 +24,8 @@ public class Vehicle implements Serializable {
 	 */
 	//private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 	/*
 	 * 所属用户
 	 */
@@ -44,10 +44,10 @@ public class Vehicle implements Serializable {
 	@Column(nullable=false)
 	boolean autoCharge=true;
 	
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public User getUser() {

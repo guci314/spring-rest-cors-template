@@ -8,11 +8,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "wallets")
+@Table(name = "TAPP_Wallets")
 public class Wallet {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 	@Column(nullable=false,unique=true)
 	private String phoneNumber;	
 	@Column(nullable=false)
@@ -27,10 +27,10 @@ public class Wallet {
 		
 	}
 	
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public String getPhoneNumber() {

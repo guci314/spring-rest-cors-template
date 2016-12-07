@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "users")
+@Table(name = "TAPP_Users")
 //@NamedQueries({
 //    @NamedQuery(
 //            name="findUserByPhoneNumber",
@@ -24,8 +24,8 @@ public class User implements Serializable {
 	 */
 	//private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 	private String name;
 	@Column(nullable=false,unique=true)
 	private String phoneNumber;
@@ -57,11 +57,11 @@ public class User implements Serializable {
 	}
 
 	public String getPassword() {
-		return password;
+		return AESOperator.getInstance().decrypt(password);
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+		this.password =AESOperator.getInstance().encrypt(password);
 	}
 
 	public String getPhoneNumber() {
@@ -72,11 +72,11 @@ public class User implements Serializable {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	

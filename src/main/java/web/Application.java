@@ -47,17 +47,26 @@ public class Application {
 	@Bean(name = "dataSource")
 	public DataSource dataSource() {
 		Properties connectionProperties = new Properties();
-		// connectionProperties.setProperty("hibernate.hbm2ddl.auto", "update");
-		//DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource(
-		//		"jdbc:mysql://localhost:3306/test?useUnicode=yes&characterEncoding=UTF-8", "root", "root");
+//		DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource(
+//				"jdbc:mysql://localhost:3306/test?useUnicode=yes&characterEncoding=UTF-8", "root", "root");
+		//driverManagerDataSource.setDriverClassName("com.mysql.jdbc.Driver");
 		DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource(
-				"jdbc:sqlserver://192.168.6.23:1433;databaseName=test;integratedSecurity=false;", "sa", "Wchy@2015");
-		// DriverManagerDataSource driverManagerDataSource = new
-		// DriverManagerDataSource("jdbc:h2:mem:mydb", "root", "root");
+				"jdbc:sqlserver://192.168.6.75:1433;databaseName=WCHYAPP;integratedSecurity=false;", "sa", "Wchy@2015");
 		driverManagerDataSource.setConnectionProperties(connectionProperties);
+		driverManagerDataSource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 		return driverManagerDataSource;
 	}
 
+	@Bean
+	public JpaVendorAdapter jpaVendorAdapter() {
+		HibernateJpaVendorAdapter hibernateJpaVendorAdapter = new HibernateJpaVendorAdapter();
+		hibernateJpaVendorAdapter.setShowSql(false);
+		hibernateJpaVendorAdapter.setGenerateDdl(true);
+		hibernateJpaVendorAdapter.setDatabase(Database.SQL_SERVER);
+		//hibernateJpaVendorAdapter.setDatabase(Database.MYSQL);
+		return hibernateJpaVendorAdapter;
+	}
+	
 	@Bean
 	public CorsFilter getCorsFilter() {
 		return new CorsFilter();
@@ -73,14 +82,6 @@ public class Application {
 		return lef;
 	}
 
-	@Bean
-	public JpaVendorAdapter jpaVendorAdapter() {
-		HibernateJpaVendorAdapter hibernateJpaVendorAdapter = new HibernateJpaVendorAdapter();
-		hibernateJpaVendorAdapter.setShowSql(false);
-		hibernateJpaVendorAdapter.setGenerateDdl(true);
-		hibernateJpaVendorAdapter.setDatabase(Database.MYSQL);
-		return hibernateJpaVendorAdapter;
-	}
 
 	@Bean
 	public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {

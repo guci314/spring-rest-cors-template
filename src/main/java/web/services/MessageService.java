@@ -31,13 +31,14 @@ public class MessageService {
 		return new MessageDTO(mes);
 	}
 	
-	public boolean DeleteMessage(Long id){
+	public boolean DeleteMessage(Integer id){
 		messageRepository.delete(id);
 		return true;
 	}
 	
 	public MessageDTO Update(MessageDTO dto){
-		Message m=messageRepository.getOne(dto.getId());
+		Integer i=dto.getId();
+		Message m=messageRepository.getOne(i);
 		m.setTitle(dto.getTitle());
 		m.setContent(dto.getContent());
 		User u=userRepository.findOne(dto.getUser_id());
@@ -45,7 +46,7 @@ public class MessageService {
 		return new MessageDTO(m);
 	}
 	
-	public MessageDTO GetMessage(Long id){
+	public MessageDTO GetMessage(Integer id){
 		Message m=messageRepository.getOne(id);
 		return new MessageDTO(m);
 	}

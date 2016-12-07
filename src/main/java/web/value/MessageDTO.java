@@ -10,19 +10,19 @@ import web.models.Message;
 import web.models.User;
 
 public class MessageDTO {
-	private Long id;
+	private Integer id;
 	
 	private String title;
 	
 	private String content;
 	
-	private Long user_id;
+	private Integer user_id;
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -42,11 +42,11 @@ public class MessageDTO {
 		this.content = content;
 	}
 
-	public Long getUser_id() {
+	public Integer getUser_id() {
 		return user_id;
 	}
 
-	public void setUser_id(Long user_id) {
+	public void setUser_id(Integer user_id) {
 		this.user_id = user_id;
 	}
 	

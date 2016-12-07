@@ -38,9 +38,14 @@ public class VehicleService {
 		return v;
 	}
 	
-	public boolean deleteVehicle(Long id){
+	public boolean deleteVehicle(Integer id){
 		vehicleRepository.delete(id);
 		vehicleRepository.flush();
 		return true;
+	}
+	
+	public boolean checkBindStatus(String plate){
+		List<Vehicle> vl=vehicleRepository.findVehiclesByPlate(plate);
+		return vl.size() == 0;
 	}
 }

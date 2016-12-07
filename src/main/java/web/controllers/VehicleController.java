@@ -57,8 +57,21 @@ public class VehicleController {
 			HttpServletResponse response) {
 		try {
 			JSONObject j=new JSONObject(params);
-			Long id=j.getLong("id");
+			Integer id=j.getInt("id");
 			return vehicleService.deleteVehicle(id);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	@RequestMapping(value = "/checkBindStatus", method = { RequestMethod.POST })
+	public boolean checkBindStatus(@RequestBody String params) {
+		try {
+			JSONObject j=new JSONObject(params);
+			String plate=j.getString("plate");
+			return vehicleService.checkBindStatus(plate);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

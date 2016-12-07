@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import web.models.Message;
 
 @Repository
-public interface MessageRepository extends JpaRepository<Message, Long> {
+public interface MessageRepository extends JpaRepository<Message, Integer> {
 	@Query("select m From Message m Where m.owner.phoneNumber = ?1")
 	public List<Message> findMessageByPhoneNumber(String phoneNumber);
 }

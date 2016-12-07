@@ -43,7 +43,7 @@ public class MessageController {
 	}
 	
 	@RequestMapping(value = "/{id}", method = { RequestMethod.DELETE })
-	public boolean deleteMessage(@PathVariable("id") Long id) {
+	public boolean deleteMessage(@PathVariable("id") Integer id) {
 		try {
 			return messageService.DeleteMessage(id);
 		} catch (JSONException e) {
@@ -73,7 +73,7 @@ public class MessageController {
 	}
 	
 	@RequestMapping(value = "/{id}", method = { RequestMethod.GET })
-	public MessageDTO getMessage(@PathVariable("id") Long id) {
+	public MessageDTO getMessage(@PathVariable("id") Integer id) {
 		try {
 			return messageService.GetMessage(id);
 		} catch (JSONException e) {

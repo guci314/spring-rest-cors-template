@@ -1,5 +1,7 @@
 package web.services;
 
+import java.util.List;
+
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -7,6 +9,7 @@ import org.springframework.stereotype.Service;
 import web.models.User;
 import web.models.Vehicle;
 import web.repositories.UserRepository;
+import web.repositories.VehicleRepository;
 
 @Service
 public class RegisterService {
@@ -14,67 +17,96 @@ public class RegisterService {
 	private UserRepository userRepository;
 	@Autowired
 	private WalletService walletService;
+	@Autowired
+	private VehicleRepository vehicleRepository;
 
-	public boolean Register(String phoneNumber, String validCode, String password) {
+	public enum ResponseCode{
+		
+		ok("成功",0),fail("失败",1),wrongValidCode("验证码错误",2),phoneExist("电话号码已存在",3)
+		,wrongPassword("密码错误",4),systemError("系统错误",5),phoneNotExist("电话号码不存在",6),
+		noPermission("无权限",7);
+		
+	    private String name;
+	    private int index;
+
+	    private ResponseCode(String name, int index) {
+	      this.name = name;
+	      this.index = index;
+	    }
+		
+	}
+	
+	public ResponseCode Register(String phoneNumber, String validCode, String password) {
 		try {
 			User u = new User();
 			u.setPassword(password);
 			u.setPhoneNumber(phoneNumber);
 			userRepository.saveAndFlush(u);
 			walletService.create(phoneNumber);
-			return true;
+			return ResponseCode.ok;
 		}
 		catch (org.springframework.dao.DataIntegrityViolationException e){
-			return false;
+			return ResponseCode.phoneExist;
 		}
 		catch (Exception e) {
 			System.out.println(e.getMessage());
-			return false;
+			return ResponseCode.systemError;
 		}
 	}
 
-	public boolean Login(String phoneNumber,String password){
+	public ResponseCode Login(String phoneNumber,String password){
 		User user=userRepository.findUserByPhoneNumber(phoneNumber);
-		if (user==null) return false;
+		if (user==null) return ResponseCode.phoneNotExist;
 		if (user.getPassword().equals(password)){
-			return true;
+			return ResponseCode.ok;
 		}else{
-			return false;
+			return ResponseCode.wrongPassword;
 		}
 	}
 	
-	public void ResetPassword() {
-
+	public ResponseCode ResetPassword(String phoneNumber, String validCode, String password) {
+		try {
+			User u = userRepository.findUserByPhoneNumber(phoneNumber);
+			if (u==null) return ResponseCode.phoneNotExist;
+			u.setPassword(password);
+			userRepository.saveAndFlush(u);
+			return ResponseCode.ok;
+		}
+		catch (Exception e) {
+			System.out.println(e.getMessage());
+			return ResponseCode.systemError;
+		}
 	}
 	
-	public boolean ChangeUserName(String phoneNumber,String newName){
+	public ResponseCode ChangeUserName(String phoneNumber,String newName){
 		User user=userRepository.findUserByPhoneNumber(phoneNumber);
-		if (user==null) return false;
+		if (user==null) return ResponseCode.phoneNotExist;
 		try{
 			user.setName(newName);
 			userRepository.saveAndFlush(user);
-			return true;
+			return ResponseCode.ok;
 		}catch(Exception e){
 			System.out.println(e.getMessage());
-			return false;
+			return ResponseCode.systemError;
 		}
 	}
 	
-	public boolean ChangePassword(String phoneNumber,String oldPassword,String newPassword){
+	public ResponseCode ChangePassword(String phoneNumber,String oldPassword,String newPassword){
 		User user=userRepository.findUserByPhoneNumber(phoneNumber);
-		if (user==null) return false;
+		if (user==null) return ResponseCode.phoneNotExist;
 		try{
-			if (!user.getPassword().equals(oldPassword)) return false;
+			if (!user.getPassword().equals(oldPassword)) return ResponseCode.wrongPassword;
 			user.setPassword(newPassword);
 			userRepository.saveAndFlush(user);
-			return true;
+			return ResponseCode.ok;
 		}catch(Exception e){
-			return false;
+			return ResponseCode.systemError;
 		}
 	}
 	
 	public String GetUserByPhoneNumber(String phoneNumber){
 		User user=userRepository.findUserByPhoneNumber(phoneNumber);
+		if (user==null) return null;
 		JSONObject obj = new JSONObject();
 		obj.put("id", user.getId());
 		obj.put("name", user.getName());
